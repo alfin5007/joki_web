@@ -16,8 +16,8 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Services Categoty') }}
+                    <flux:sidebar.item icon="rectangle-stack" :href="route('services.index')" :current="request()->routeIs('services.index')" wire:navigate>
+                        {{ __('Services Category') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
