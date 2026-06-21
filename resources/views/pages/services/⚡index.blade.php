@@ -149,53 +149,77 @@ new #[Title('Service Categories')] class extends Component {
         />
     </div>
 
-    <!-- Categories List -->
-    <div class="border rounded-xl border-zinc-200 dark:border-zinc-700 overflow-hidden bg-zinc-50 dark:bg-zinc-800/50">
-        @forelse ($this->categories as $category)
-            <div class="flex items-center justify-between p-5 {{ ! $loop->last ? 'border-b border-zinc-200 dark:border-zinc-700' : '' }} hover:bg-neutral-100 dark:hover:bg-zinc-800/80 transition-colors duration-150">
-                <div class="flex items-start gap-4">
-                    <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-neutral-100 dark:bg-zinc-800 border border-neutral-200 dark:border-zinc-700 text-neutral-600 dark:text-neutral-300">
-                        <flux:icon.rectangle-stack class="size-6" />
-                    </div>
-                    <div class="space-y-1">
-                        <p class="font-semibold text-neutral-900 dark:text-neutral-100 tracking-tight text-base">{{ $category->name }}</p>
-                        @if ($category->description)
-                            <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed max-w-2xl">{{ $category->description }}</p>
-                        @else
-                            <p class="text-neutral-400 dark:text-neutral-500 text-sm italic">{{ __('No description provided.') }}</p>
-                        @endif
-                    </div>
-                </div>
 
-                <div class="flex items-center gap-2">
-                    <flux:button
-                        variant="ghost"
-                        size="sm"
-                        icon="pencil-square"
-                        wire:click="editCategory({{ $category->id }})"
-                        class="text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-zinc-700 cursor-pointer"
-                        title="{{ __('Edit Category') }}"
-                    />
-                    <flux:button
-                        variant="ghost"
-                        size="sm"
-                        icon="trash"
-                        wire:click="confirmDelete({{ $category->id }})"
-                        class="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 cursor-pointer"
-                        title="{{ __('Delete Category') }}"
-                    />
-                </div>
-            </div>
-        @empty
-            <div class="p-12 text-center">
-                <div class="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-neutral-100 dark:bg-zinc-800 border border-neutral-200 dark:border-zinc-700 text-neutral-400 dark:text-neutral-500">
-                    <flux:icon.rectangle-stack class="size-8" />
-                </div>
-                <p class="font-semibold text-neutral-800 dark:text-neutral-200 text-lg">{{ __('No categories found') }}</p>
-                <flux:text class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{{ __('Try adjusting your search or add a new category to get started.') }}</flux:text>
-            </div>
-        @endforelse
+    <!-- Categories Table -->
+    <!-- Categories Table -->
+    <div class="border rounded-xl border-zinc-200 dark:border-zinc-700 overflow-hidden bg-white dark:bg-zinc-800/50 shadow-sm">
+        <flux:table>
+            <flux:table.columns>
+                <flux:table.column class="w-16">No</flux:table.column>
+                <flux:table.column>Nama Kategori</flux:table.column>
+                <flux:table.column>Deskripsi</flux:table.column>
+                <flux:table.column class="w-28 text-right">Aksi</flux:table.column>
+            </flux:table.columns>
+
+            <flux:table.rows>
+                @forelse ($this->categories as $category)
+                    <flux:table.row :key="$category->id">
+                        <!-- Kolom No -->
+                        <flux:table.cell class="font-medium text-zinc-500 dark:text-zinc-400">
+                            {{ $loop->iteration }}
+                        </flux:table.table.cell>
+                        
+                        <!-- Kolom Nama -->
+                        <flux:table.cell class="font-semibold text-zinc-950 dark:text-white">
+                            {{ $category->name }}
+                        </flux:table.table.cell>
+                        
+                        <!-- Kolom Deskripsi -->
+                        <flux:table.cell class="text-zinc-500 dark:text-zinc-400 max-w-md truncate">
+                            {{ $category->description ?? '-' }}
+                        </flux:table.table.cell>
+                        
+                        <!-- Kolom Aksi -->
+                        <flux:table.cell class="text-right">
+                            <div class="flex items-center justify-end gap-1">
+                                <flux:button
+                                    variant="ghost"
+                                    size="sm"
+                                    icon="pencil-square"
+                                    wire:click="editCategory({{ $category->id }})"
+                                    class="text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-zinc-700 cursor-pointer"
+                                    title="{{ __('Edit Category') }}"
+                                />
+                                <flux:button
+                                    variant="ghost"
+                                    size="sm"
+                                    icon="trash"
+                                    wire:click="confirmDelete({{ $category->id }})"
+                                    class="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 cursor-pointer"
+                                    title="{{ __('Delete Category') }}"
+                                />
+                            </div>
+                        </flux:table.cell>
+                    </flux:row>
+                @empty
+                    <!-- Tampilan jika Kategori Kosong -->
+                    <flux:table.row>
+                        <flux:table.cell colspan="4" class="text-center py-12">
+                            <div class="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-neutral-100 dark:bg-zinc-800 border border-neutral-200 dark:border-zinc-700 text-neutral-400 dark:text-neutral-500">
+                                <flux:icon.rectangle-stack class="size-8" />
+                            </div>
+                            <p class="font-semibold text-neutral-800 dark:text-neutral-200 text-lg">{{ __('No categories found') }}</p>
+                            <flux:text class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                                {{ __('Try adjusting your search or add a new category to get started.') }}
+                            </flux:text>
+                        </flux:table.cell>
+                    </flux:table.row>
+                @endforelse
+            </flux:table.rows>
+        </flux:table>
     </div>
+
+
 
     <!-- Create/Edit Modal -->
     <flux:modal
