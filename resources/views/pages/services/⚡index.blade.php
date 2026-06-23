@@ -151,7 +151,6 @@ new #[Title('Service Categories')] class extends Component {
 
 
     <!-- Categories Table -->
-    <!-- Categories Table -->
     <div class="border rounded-xl border-zinc-200 dark:border-zinc-700 overflow-hidden bg-white dark:bg-zinc-800/50 shadow-sm">
         <flux:table>
             <flux:table.columns>
@@ -167,17 +166,17 @@ new #[Title('Service Categories')] class extends Component {
                         <!-- Kolom No -->
                         <flux:table.cell class="font-medium text-zinc-500 dark:text-zinc-400">
                             {{ $loop->iteration }}
-                        </flux:table.table.cell>
+                        </flux:table.cell>
                         
                         <!-- Kolom Nama -->
                         <flux:table.cell class="font-semibold text-zinc-950 dark:text-white">
                             {{ $category->name }}
-                        </flux:table.table.cell>
+                        </flux:table.cell>
                         
                         <!-- Kolom Deskripsi -->
                         <flux:table.cell class="text-zinc-500 dark:text-zinc-400 max-w-md truncate">
                             {{ $category->description ?? '-' }}
-                        </flux:table.table.cell>
+                        </flux:table.cell>
                         
                         <!-- Kolom Aksi -->
                         <flux:table.cell class="text-right">
@@ -200,7 +199,7 @@ new #[Title('Service Categories')] class extends Component {
                                 />
                             </div>
                         </flux:table.cell>
-                    </flux:row>
+                    </flux:table.row>
                 @empty
                     <!-- Tampilan jika Kategori Kosong -->
                     <flux:table.row>
