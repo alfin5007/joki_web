@@ -64,7 +64,7 @@
 
                 <div class="relative flex h-full flex-col justify-between gap-4">
                     <div>
-                        <p class="text-sm font-medium text-white/85">Selamat datang kembali 👋</p>
+                        <p class="text-sm font-medium text-white/85">Selamat datang kembali</p>
                         <h1 class="mt-1 text-2xl font-bold tracking-tight text-white">
                             {{ auth()->user()->name }}</h1>
                         <p class="mt-2 text-sm text-white/75">
