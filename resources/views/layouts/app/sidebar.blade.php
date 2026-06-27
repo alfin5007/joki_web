@@ -19,6 +19,9 @@
                     <flux:sidebar.item icon="rectangle-stack" :href="route('services.index')" :current="request()->routeIs('services.index')" wire:navigate>
                         {{ __('Services Category') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="shopping-cart" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
+    {{ __('Orders') }}
+</flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

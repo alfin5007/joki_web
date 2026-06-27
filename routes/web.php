@@ -1,12 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
-Route::view('/', 'welcome')->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::livewire('services', 'pages::services.index')->name('services.index');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-require __DIR__.'/settings.php';
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+
+// Profile
+Route::get('/profile', function () {
+    return view('profile.edit');
+})->name('profile.edit');
+
+
+// Services
+Route::get('/services', function () {
+    return view('services.index');
+})->name('services.index');
+
+
+// Orders
+Route::resource('orders', OrderController::class);
