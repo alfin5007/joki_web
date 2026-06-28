@@ -128,6 +128,9 @@
 
                     <flux:table>
                         <flux:table.columns>
+                            <flux:table.column class="w-12">
+                                <span class="flex justify-center w-full">No</span>
+                            </flux:table.column>
                             <flux:table.column>Layanan</flux:table.column>
                             <flux:table.column>Harga Dasar</flux:table.column>
                             <flux:table.column>Kategori</flux:table.column>
@@ -136,6 +139,11 @@
                         <flux:table.rows>
                             @forelse ($recentServices as $service)
                                 <flux:table.row>
+                                    <flux:table.cell>
+                                        <span class="flex justify-center w-full font-medium text-zinc-500 dark:text-zinc-400">
+                                            {{ $loop->iteration }}
+                                        </span>
+                                    </flux:table.cell>
                                     <flux:table.cell>
                                         <div class="flex items-center gap-3">
                                             <div
@@ -165,7 +173,7 @@
                                 </flux:table.row>
                             @empty
                                 <flux:table.row>
-                                    <flux:table.cell colspan="4">
+                                    <flux:table.cell colspan="5">
                                         <div class="py-6 text-center text-sm text-zinc-400">
                                             Belum ada layanan yang ditambahkan.
                                         </div>

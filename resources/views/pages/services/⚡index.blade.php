@@ -154,7 +154,9 @@ new #[Title('Service Categories')] class extends Component {
     <div class="border rounded-xl border-zinc-200 dark:border-zinc-700 overflow-hidden bg-white dark:bg-zinc-800/50 shadow-sm">
         <flux:table>
             <flux:table.columns>
-                <flux:table.column class="w-16">No</flux:table.column>
+                <flux:table.column class="w-12">
+                    <span class="flex justify-center w-full">No</span>
+                </flux:table.column>
                 <flux:table.column>Nama Kategori</flux:table.column>
                 <flux:table.column>Deskripsi</flux:table.column>
                 <flux:table.column class="w-28 text-right">Aksi</flux:table.column>
@@ -164,8 +166,10 @@ new #[Title('Service Categories')] class extends Component {
                 @forelse ($this->categories as $category)
                     <flux:table.row :key="$category->id">
                         <!-- Kolom No -->
-                        <flux:table.cell class="font-medium text-zinc-500 dark:text-zinc-400">
-                            {{ $loop->iteration }}
+                        <flux:table.cell>
+                            <span class="flex justify-center w-full font-medium text-zinc-500 dark:text-zinc-400">
+                                {{ $loop->iteration }}
+                            </span>
                         </flux:table.cell>
                         
                         <!-- Kolom Nama -->

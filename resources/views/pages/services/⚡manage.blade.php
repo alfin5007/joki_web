@@ -167,7 +167,9 @@ new #[Title('Manage Services')] class extends Component {
     <div class="border rounded-xl border-zinc-200 dark:border-zinc-700 overflow-hidden bg-white dark:bg-zinc-800/50 shadow-sm">
         <flux:table>
             <flux:table.columns>
-                <flux:table.column class="w-16">No</flux:table.column>
+                <flux:table.column class="w-12">
+                    <span class="flex justify-center w-full">No</span>
+                </flux:table.column>
                 <flux:table.column>Nama Layanan</flux:table.column>
                 <flux:table.column>Kategori</flux:table.column>
                 <flux:table.column>Harga Dasar</flux:table.column>
@@ -178,8 +180,10 @@ new #[Title('Manage Services')] class extends Component {
             <flux:table.rows>
                 @forelse ($this->services as $service)
                     <flux:table.row :key="$service->id">
-                        <flux:table.cell class="font-medium text-zinc-500 dark:text-zinc-400">
-                            {{ $loop->iteration }}
+                        <flux:table.cell>
+                            <span class="flex justify-center w-full font-medium text-zinc-500 dark:text-zinc-400">
+                                {{ $loop->iteration }}
+                            </span>
                         </flux:table.cell>
                         
                         <flux:table.cell class="font-semibold text-zinc-950 dark:text-white">
@@ -222,7 +226,7 @@ new #[Title('Manage Services')] class extends Component {
                                 />
                             </div>
                         </flux:table.cell>
-                    </flux:row>
+                    </flux:table.row>
                 @empty
                     <flux:table.row>
                         <flux:table.cell colspan="6" class="text-center py-12">
