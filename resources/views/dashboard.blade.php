@@ -62,7 +62,7 @@
                     <div>
                         <p class="text-sm font-medium text-white/85">Selamat datang kembali 👋</p>
                         <h1 class="mt-1 text-2xl font-bold tracking-tight text-white">{{ auth()->user()->name }}</h1>
-                        <p class="mt-2 text-sm text-white/85 leading-relaxed">
+                        <p class="mt-2 text-sm text-white/75">
                             {{ now()->translatedFormat('l, d F Y') }}<br class="hidden sm:inline">
                             <span class="hidden sm:inline">&mdash; </span>Portal Layanan &amp; Manajemen Joki Web
                         </p>
@@ -96,7 +96,6 @@
                     </flux:card>
                 @endforeach
             </div>
-
         </div>
 
         {{-- ── BOTTOM SECTION ───────────────────────────────────────── --}}
@@ -117,6 +116,7 @@
 
                     <flux:table>
                         <flux:table.columns>
+                            <flux:table.column class="w-12"><span class="flex justify-center w-full">No</span></flux:table.column>
                             <flux:table.column>Layanan</flux:table.column>
                             <flux:table.column>Harga Dasar</flux:table.column>
                             <flux:table.column>Kategori</flux:table.column>
@@ -125,6 +125,9 @@
                         <flux:table.rows>
                             @forelse ($recentServices as $service)
                                 <flux:table.row>
+                                    <flux:table.cell>
+                                        <span class="flex justify-center w-full font-medium text-zinc-500 dark:text-zinc-400">{{ $loop->iteration }}</span>
+                                    </flux:table.cell>
                                     <flux:table.cell>
                                         <div class="flex items-center gap-3">
                                             <div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-rose-500">
@@ -153,10 +156,8 @@
                                 </flux:table.row>
                             @empty
                                 <flux:table.row>
-                                    <flux:table.cell colspan="4">
-                                        <div class="py-6 text-center text-sm text-zinc-400">
-                                            Belum ada layanan yang ditambahkan.
-                                        </div>
+                                    <flux:table.cell colspan="5">
+                                        <div class="py-6 text-center text-sm text-zinc-400">Belum ada layanan yang ditambahkan.</div>
                                     </flux:table.cell>
                                 </flux:table.row>
                             @endforelse
@@ -190,9 +191,7 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="py-6 text-center text-sm text-zinc-400">
-                                Belum ada pengguna terdaftar.
-                            </div>
+                            <div class="py-6 text-center text-sm text-zinc-400">Belum ada pengguna terdaftar.</div>
                         @endforelse
                     </div>
                 </flux:card>
