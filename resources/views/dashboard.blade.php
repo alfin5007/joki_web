@@ -47,27 +47,22 @@
     ];
 @endphp
 
-<x-layouts::app :title="__('Dashboard')">
+<x-layouts::app>
     <div class="flex h-full w-full flex-1 flex-col gap-6">
 
         {{-- ── TOP GRID: Hero + Stat Cards ────────────────────────── --}}
         <div class="grid gap-4 lg:grid-cols-5 lg:items-stretch">
 
-            {{-- Hero Banner — spans 2 cols on desktop --}}
-            <div
-                class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-accent px-6 py-8 text-white shadow-lg lg:col-span-2">
-                {{-- decorative circles --}}
-                <div class="pointer-events-none absolute -right-10 -top-10 size-48 rounded-full bg-white/10 blur-2xl">
-                </div>
-                <div class="pointer-events-none absolute -bottom-8 -left-8 size-40 rounded-full bg-white/10 blur-2xl">
-                </div>
+            {{-- Hero Banner --}}
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-6 py-8 text-white shadow-lg lg:col-span-2">
+                <div class="pointer-events-none absolute -right-10 -top-10 size-48 rounded-full bg-white/10 blur-2xl"></div>
+                <div class="pointer-events-none absolute -bottom-8 -left-8 size-40 rounded-full bg-white/10 blur-2xl"></div>
 
                 <div class="relative flex h-full flex-col justify-between gap-4">
                     <div>
                         <p class="text-sm font-medium text-white/85">Selamat datang kembali 👋</p>
-                        <h1 class="mt-1 text-2xl font-bold tracking-tight text-white">
-                            {{ auth()->user()->name }}</h1>
-                        <p class="mt-2 text-sm text-white/75">
+                        <h1 class="mt-1 text-2xl font-bold tracking-tight text-white">{{ auth()->user()->name }}</h1>
+                        <p class="mt-2 text-sm text-white/85 leading-relaxed">
                             {{ now()->translatedFormat('l, d F Y') }}<br class="hidden sm:inline">
                             <span class="hidden sm:inline">&mdash; </span>Portal Layanan &amp; Manajemen Joki Web
                         </p>
@@ -78,24 +73,19 @@
                 </div>
             </div>
 
-            {{-- Stat Cards — 2x2 grid, spans 3 cols on desktop --}}
+            {{-- Stat Cards --}}
             <div class="grid grid-cols-2 gap-3 lg:col-span-3">
                 @foreach ($stats as $stat)
-                    <flux:card class="group relative overflow-hidden p-3 transition-shadow duration-300 hover:shadow-md">
-                        {{-- gradient accent bar --}}
-                        <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r {{ $stat['gradient'] }} rounded-t-xl">
-                        </div>
+                    <flux:card class="group relative overflow-hidden p-3 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                        <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r {{ $stat['gradient'] }} rounded-t-xl"></div>
 
                         <div class="flex items-center gap-3 pt-1">
-                            {{-- icon --}}
                             <div class="flex size-9 shrink-0 items-center justify-center rounded-lg {{ $stat['bg'] }}">
                                 <flux:icon :icon="$stat['icon']" class="size-4 {{ $stat['text'] }}" />
                             </div>
 
-                            {{-- text --}}
                             <div class="min-w-0">
-                                <p
-                                    class="truncate text-[10px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                                <p class="truncate text-[10px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                                     {{ $stat['label'] }}
                                 </p>
                                 <p class="text-xl font-bold tabular-nums leading-tight">
@@ -112,7 +102,7 @@
         {{-- ── BOTTOM SECTION ───────────────────────────────────────── --}}
         <div class="grid gap-6 lg:grid-cols-5">
 
-            {{-- Recent Services – 3 cols --}}
+            {{-- Recent Services --}}
             <div class="lg:col-span-3">
                 <flux:card class="h-full">
                     <div class="mb-4 flex items-center justify-between">
@@ -120,8 +110,7 @@
                             <flux:heading size="lg">Layanan Terbaru</flux:heading>
                             <flux:subheading class="text-xs">5 layanan yang baru ditambahkan</flux:subheading>
                         </div>
-                        <flux:button variant="ghost" size="sm" icon="arrow-right" :href="route('services.index')"
-                            wire:navigate>
+                        <flux:button variant="ghost" size="sm" icon="arrow-right" :href="route('services.index')" wire:navigate>
                             Lihat semua
                         </flux:button>
                     </div>
@@ -138,8 +127,7 @@
                                 <flux:table.row>
                                     <flux:table.cell>
                                         <div class="flex items-center gap-3">
-                                            <div
-                                                class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-rose-500">
+                                            <div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-rose-500">
                                                 <flux:icon.briefcase class="size-4 text-white" />
                                             </div>
                                             <span class="font-medium">{{ Str::limit($service->name, 22) }}</span>
@@ -177,7 +165,7 @@
                 </flux:card>
             </div>
 
-            {{-- Recent Users – 2 cols --}}
+            {{-- Recent Users --}}
             <div class="lg:col-span-2">
                 <flux:card class="h-full">
                     <div class="mb-4 flex items-center justify-between">
@@ -190,15 +178,11 @@
                     <div class="flex flex-col divide-y divide-zinc-100 dark:divide-zinc-800">
                         @forelse ($recentUsers as $user)
                             <div class="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
-                                {{-- colored dot --}}
-                                <div class="mt-1.5 size-2 shrink-0 rounded-full bg-gradient-to-br from-sky-400 to-blue-600">
-                                </div>
+                                <div class="mt-1.5 size-2 shrink-0 rounded-full bg-gradient-to-br from-sky-400 to-blue-600"></div>
                                 <div class="min-w-0 flex-1">
                                     <div class="flex items-center justify-between">
-                                        <p class="truncate text-sm font-medium leading-snug">
-                                            {{ $user->name }}
-                                        </p>
-                                        <flux:badge size="sm" color="zinc" class="capitalize">{{ $user->role }}</flux:badge>
+                                        <p class="truncate text-sm font-medium leading-snug">{{ $user->name }}</p>
+                                        <flux:badge size="sm" color="zinc" class="capitalize">{{ $user->role ?? 'User' }}</flux:badge>
                                     </div>
                                     <p class="mt-0.5 text-xs text-zinc-400">
                                         {{ $user->email }} &bull; {{ $user->created_at->diffForHumans() }}
