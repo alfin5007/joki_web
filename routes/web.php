@@ -1,43 +1,41 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\ProfilController; 
-use App\Http\Controllers\UserController; // 🟢 Kita daftarkan UserController di sini
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
+// Halaman Landing
 Route::get('/', function () {
-    return auth()->check()
-        ? redirect()->route('dashboard')
-        : redirect('/login');
+    return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () {
-
+// Route yang membutuhkan autentikasi
+Route::middleware(['auth', 'verified'])->group(function () {
+    
     // Dashboard
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Home
-    Route::redirect('/home', '/dashboard');
+    // Manajemen Layanan
+    Route::prefix('services')->name('services.')->group(function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/manage', [ServiceController::class, 'manage'])->name('manage');
+        // Tambahkan route create/edit/delete lainnya di sini jika perlu
+    });
 
-    // Profile (Sudah diperbaiki mengarah ke ProfilController baru kita)
-    Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+    // Pesanan
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
-    // Services
-    Route::get('/services', [ServiceController::class, 'index'])
-        ->name('services.index');
-
-    // Orders
-    Route::resource('orders', OrderController::class);
-
-    // Pengguna (Users) 🟢 Jalur baru untuk halaman pengguna kamu
+    // Pengguna
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
+    // Profil & Pengaturan
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route pembersih cache bawaan project kamu
-Route::get('/clear-all', function () {
-    Artisan::call('optimize:clear');
-    return 'Cache Laravel berhasil dibersihkan.';
-});
+// Auth Routes (Pastikan file auth.php di-require jika Anda menggunakan Laravel Breeze/Jetstream)
+require __DIR__.'/auth.php';
