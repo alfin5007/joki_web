@@ -2,15 +2,18 @@
 <?php # [BlazeFolded]:{flux::toast.group}:{/home/caplinux/project/joki_web/vendor/livewire/flux/src/../stubs/resources/views/flux/toast/group.blade.php}:{1776985208} ?>
 <!DOCTYPE html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>" class="dark">
-    <head>
-        <?php echo $__env->make('partials.head', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-    </head>
-    <body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
-        <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-            <div class="flex w-full max-w-sm flex-col gap-2">
-                <a href="<?php echo e(route('home')); ?>" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
-                    <span class="flex h-9 w-9 mb-1 items-center justify-center rounded-md">
-                        <?php if (isset($component)) { $__componentOriginal159d6670770cb479b1921cea6416c26c = $component; } ?>
+<head>
+    <?php echo $__env->make('partials.head', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+</head>
+
+<body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
+
+    <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+        <div class="flex w-full max-w-sm flex-col gap-2">
+
+            <a href="<?php echo e(url('home')); ?>" class="flex flex-col items-center gap-2 font-medium">
+                <span class="flex h-9 w-9 mb-1 items-center justify-center rounded-md">
+                    <?php if (isset($component)) { $__componentOriginal159d6670770cb479b1921cea6416c26c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal159d6670770cb479b1921cea6416c26c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.app-logo-icon','data' => ['class' => 'size-9 fill-current text-black dark:text-white']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('app-logo-icon'); ?>
@@ -32,20 +35,26 @@
 <?php $component = $__componentOriginal159d6670770cb479b1921cea6416c26c; ?>
 <?php unset($__componentOriginal159d6670770cb479b1921cea6416c26c); ?>
 <?php endif; ?>
-                    </span>
-                    <span class="sr-only"><?php echo e(config('app.name', 'Laravel')); ?></span>
-                </a>
-                <div class="flex flex-col gap-6">
-                    <?php echo e($slot); ?>
+                </span>
 
-                </div>
+                <span class="sr-only">
+                    <?php echo e(config('app.name', 'Laravel')); ?>
+
+                </span>
+            </a>
+
+            <div class="flex flex-col gap-6">
+                <?php echo e($slot); ?>
+
             </div>
-        </div>
 
-        <?php app("livewire")->forceAssetInjection(); ?><div x-persist="<?php echo e('toast'); ?>">
-            <?php ob_start(); ?><ui-toast-group x-data x-on:toast-show.document="$el.showToast($event.detail)" popover="manual" position="bottom end"  wire:ignore>
+        </div>
+    </div>
+
+    <?php app("livewire")->forceAssetInjection(); ?><div x-persist="<?php echo e('toast'); ?>">
+        <?php ob_start(); ?><ui-toast-group x-data x-on:toast-show.document="$el.showToast($event.detail)" popover="manual" position="bottom end"  wire:ignore>
     <?php ob_start(); ?>
-                <?php ob_start(); ?><ui-toast x-data x-on:toast-show.document="! $el.closest('ui-toast-group') && $el.showToast($event.detail)" popover="manual" position="bottom end" wire:ignore>
+            <?php ob_start(); ?><ui-toast x-data x-on:toast-show.document="! $el.closest('ui-toast-group') && $el.showToast($event.detail)" popover="manual" position="bottom end" wire:ignore>
     <template>
         <div class="max-w-sm in-[ui-toast-group]:max-w-auto in-[ui-toast-group]:w-xs sm:in-[ui-toast-group]:w-sm" data-variant="" data-flux-toast-dialog>
             <div class="p-2 flex rounded-xl shadow-lg bg-white border border-zinc-200 border-b-zinc-300/80 dark:bg-zinc-700 dark:border-zinc-600">
@@ -96,15 +105,16 @@
     </template>
 </ui-toast>
 <?php echo ltrim(ob_get_clean()); ?>
-            <?php echo trim(ob_get_clean()); ?>
+        <?php echo trim(ob_get_clean()); ?>
 
 </ui-toast-group>
 <?php echo ltrim(ob_get_clean()); ?>
-        </div>
+    </div>
 
-        <?php app('livewire')->forceAssetInjection(); ?>
+    <?php app('livewire')->forceAssetInjection(); ?>
 <?php echo app('flux')->scripts(); ?>
 
-    </body>
+
+</body>
 </html>
 <?php /**PATH /home/caplinux/project/joki_web/resources/views/layouts/auth/simple.blade.php ENDPATH**/ ?>

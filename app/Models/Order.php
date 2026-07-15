@@ -13,5 +13,9 @@ class Order extends Model
         'file_referensi',
         'harga_awal',
         'nama_kolom',
+        'bukti_bayar',
+        'status_pembayaran',
+        'status_pengerjaan',
+        'file_hasil',
     ];
 }

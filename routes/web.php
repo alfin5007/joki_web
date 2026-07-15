@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
 
 // Halaman Landing
 Route::get('/', function () {
@@ -16,26 +13,24 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-    // Manajemen Layanan
-    Route::prefix('services')->name('services.')->group(function () {
-        Route::get('/', [ServiceController::class, 'index'])->name('index');
-        Route::get('/manage', [ServiceController::class, 'manage'])->name('manage');
-        // Tambahkan route create/edit/delete lainnya di sini jika perlu
-    });
+    // Kategori Layanan (Livewire/Blaze)
+    Route::livewire('/services', 'pages::services.index')->name('services.index');
 
-    // Pesanan
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    // Manajemen Layanan (Livewire/Blaze)
+    Route::livewire('/services/manage', 'pages::services.manage')->name('services.manage');
+
+    // Pesanan (Orders)
+    Route::post('/orders/{order}/bukti', [OrderController::class, 'uploadBuktiBayar'])->name('orders.bukti');
+    Route::post('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.status');
+    Route::get('/orders/{order}/download', [OrderController::class, 'downloadHasil'])->name('orders.download');
+    Route::get('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
+    Route::resource('orders', OrderController::class);
 
     // Pengguna
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-    // Profil & Pengaturan
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Auth Routes (Pastikan file auth.php di-require jika Anda menggunakan Laravel Breeze/Jetstream)
-require __DIR__.'/auth.php';
+// Settings / Profile Routes
+require __DIR__.'/settings.php';
