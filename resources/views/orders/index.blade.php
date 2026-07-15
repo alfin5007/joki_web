@@ -32,20 +32,45 @@
                     @forelse ($orders ?? [] as $index => $order)
                         <flux:table.row class="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30">
                             <flux:table.cell class="font-semibold text-zinc-400">{{ $index + 1 }}</flux:table.cell>
-                            <flux:table.cell class="font-medium text-zinc-900 dark:text-white">{{ $order->client_name }}</flux:table.cell>
-                            <flux:table.cell>{{ $order->service->name ?? '—' }}</flux:table.cell>
-                            <flux:table.cell class="tabular-nums">{{ $order->qty }}</flux:table.cell>
+                            <flux:table.cell class="font-medium text-zinc-900 dark:text-white">
+                                <a href="{{ route('orders.show', $order->id) }}" class="hover:underline text-indigo-600 dark:text-indigo-400 font-semibold">
+                                    {{ $order->nama_klien }}
+                                </a>
+                            </flux:table.cell>
+                            <flux:table.cell>{{ $order->layanan }}</flux:table.cell>
+                            <flux:table.cell class="tabular-nums">{{ $order->jumlah }}</flux:table.cell>
                             <flux:table.cell class="font-medium text-zinc-900 dark:text-white tabular-nums">
-                                Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                                Rp {{ number_format($order->harga_awal, 0, ',', '.') }}
                             </flux:table.cell>
                             <flux:table.cell>
-                                <span class="inline-flex items-center gap-1.5 rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10 dark:bg-purple-950/30 dark:text-purple-400">
-                                    <span class="size-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-                                    Proses
-                                </span>
+                                @if($order->status_pembayaran === 'lunas')
+                                    <span class="inline-flex items-center gap-1.5 rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/10 dark:bg-green-950/30 dark:text-green-400">
+                                        Lunas
+                                    </span>
+                                @elseif($order->status_pembayaran === 'menunggu_konfirmasi')
+                                    <span class="inline-flex items-center gap-1.5 rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/10 dark:bg-amber-950/30 dark:text-amber-400 animate-pulse">
+                                        Verifikasi
+                                    </span>
+                                @elseif($order->status_pembayaran === 'ditolak')
+                                    <span class="inline-flex items-center gap-1.5 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 dark:bg-red-950/30 dark:text-red-400">
+                                        Ditolak
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1.5 rounded-md bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-700 ring-1 ring-inset ring-zinc-600/10 dark:bg-zinc-950/30 dark:text-zinc-400">
+                                        Belum Bayar
+                                    </span>
+                                @endif
                             </flux:table.cell>
                             <flux:table.cell>
-                                <flux:button variant="ghost" size="sm" icon="pencil" square></flux:button>
+                                <div class="flex gap-1">
+                                    <flux:button variant="ghost" size="sm" icon="eye" square href="{{ route('orders.show', $order->id) }}"></flux:button>
+                                    <flux:button variant="ghost" size="sm" icon="pencil" square href="{{ route('orders.edit', $order->id) }}"></flux:button>
+                                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus order ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <flux:button type="submit" variant="ghost" size="sm" icon="trash" class="text-red-500 hover:text-red-600" square></flux:button>
+                                    </form>
+                                </div>
                             </flux:table.cell>
                         </flux:table.row>
                     @empty

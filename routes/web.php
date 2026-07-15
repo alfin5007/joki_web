@@ -32,6 +32,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{id}/edit', [OrderController::class, 'edit'])->name('edit');
         Route::patch('/{id}', [OrderController::class, 'update'])->name('update');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('destroy');
+        
+        // Tambahan fitur spesifik
+        Route::post('/{order}/bukti', [OrderController::class, 'uploadBuktiBayar'])->name('bukti');
+        Route::post('/{order}/status', [OrderController::class, 'updateStatus'])->name('status');
+        Route::get('/{order}/download', [OrderController::class, 'downloadHasil'])->name('download');
+        Route::get('/{order}/invoice', [OrderController::class, 'invoice'])->name('invoice');
     });
 
     // Pengguna
